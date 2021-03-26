@@ -1,4 +1,4 @@
-name: sync-jd_scripts
+name: sync_from_docker
 on:
   workflow_dispatch:
   schedule:
