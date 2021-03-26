@@ -19,13 +19,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           persist-credentials: false
-      - name: Prepare Key
-        run: |
-         mkdir -p ~/.ssh
-         echo -e "${{ secrets.GITEE_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-         chmod 600 ~/.ssh/id_rsa
-         ssh-keyscan gitee.com > ~/.ssh/known_hosts
-        
       - name: sync github -> gitee
         uses: Yikun/hub-mirror-action@master
         with:
