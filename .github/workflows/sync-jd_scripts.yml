@@ -33,6 +33,7 @@ jobs:
         directory: master
         github_token: ${{ secrets.HUB_TOKEN }}
         branch: master
+        force : ture
     - name: Delete Workflow Runs
       uses: Mattraks/delete-workflow-runs@main
       with:
