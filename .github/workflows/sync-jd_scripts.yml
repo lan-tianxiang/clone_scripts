@@ -41,13 +41,3 @@ jobs:
         repository: ${{ github.repository }}
         retain_days: 1
         keep_minimum_runs: 0
-    - name: sync github -> gitee
-      uses: Yikun/hub-mirror-action@master
-      with:
-        src: github/lan-tianxiang
-        dst: gitee/highdimen
-        static_list: "clone_scripts"
-        dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
-        dst_token: ${{ secrets.GITEE_TOKEN }}
-        clone_style: ssh
-        
