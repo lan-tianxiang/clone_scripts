@@ -22,7 +22,6 @@ jobs:
 
       - name: sync github -> gitee
         uses: Yikun/hub-mirror-action@master
-        if: env.dst_key
         with:
           src: github/lan-tianxiang
           dst: gitee/highdimen
