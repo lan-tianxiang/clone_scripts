@@ -2,11 +2,11 @@ name: sync-jd_scripts
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/15 0-16,22-23 * * *'
+    - cron: '*/15 * * * *'
 jobs:
   sync:
     runs-on: ubuntu-18.04
-    if: github.repository == 'RikudouPatrickstar/jd_scripts'
+    if: github.repository == 'lan-tianxiang/clone_scripts'
     timeout-minutes: 2
     steps:
     - name: Init Build Dependencies
