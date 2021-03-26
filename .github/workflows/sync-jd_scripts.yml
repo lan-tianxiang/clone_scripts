@@ -35,9 +35,17 @@ jobs:
         branch: master
         force : ture
     - name: Delete Workflow Runs
-      uses: Mattraks/delete-workflow-runs@main
+      uses: Mattraks/delete-workflow-runs@master
       with:
         token: ${{ github.token }}
         repository: ${{ github.repository }}
         retain_days: 1
         keep_minimum_runs: 0
+    - name: sync github -> gitee
+      uses: Yikun/hub-mirror-action@master
+       with:
+         src: github/lan-tianxiang
+         dst: gitee/highdimen
+         static_list: "jd_scripts"
+         dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+         dst_token: ${{ secrets.GITEE_TOKEN }}
