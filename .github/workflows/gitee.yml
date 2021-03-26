@@ -24,7 +24,5 @@ jobs:
         with:
           src: github/lan-tianxiang
           dst: gitee/highdimen
-          static_list: "clone_scripts"
           dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
           dst_token: ${{ secrets.GITEE_TOKEN }}
-          clone_style: "ssh"
