@@ -2,7 +2,7 @@ name: sync_to_gitee
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '*/15 * * * *'
 jobs:
   sync:
     runs-on: ubuntu-latest
