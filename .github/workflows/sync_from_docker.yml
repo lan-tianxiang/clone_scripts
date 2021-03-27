@@ -39,7 +39,7 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         directory: scripts
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.HUB_TOKEN }}
         branch: master
     - name: Delete Workflow Runs
       uses: Mattraks/delete-workflow-runs@main
