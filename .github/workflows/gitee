@@ -1,28 +1,21 @@
-name: sync to gitee
+name: sync_to_gitee
 on:
-  schedule:
-    - cron: '1 0,15 * * *'
   workflow_dispatch:
-  watch:
-    types: started
-  push:
-    branches: [ master ]
-  repository_dispatch:
-    types: sync-LXK9301-scripts
+  schedule:
+    - cron: '*/30 * * * *'
 jobs:
-  repo-sync:
-    env:
-      dst_key: ${{ secrets.GITEE_PRIVATE_KEY }} # 我自己同步到gitee使用，其他人可忽略
+  sync:
     runs-on: ubuntu-latest
-    if: github.event.repository.owner.id == github.event.sender.id
+    if: github.repository == 'lan-tianxiang/clone_scripts'
+    timeout-minutes: 2
     steps:
-      - uses: actions/checkout@v2
+      - name: Sync to Gitee
+        uses: wearerequired/git-mirror-action@master
+        env:
+          # 注意在 Settings->Secrets 配置 GITEE_RSA_PRIVATE_KEY
+          SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
         with:
-          persist-credentials: false
-      - name: sync github -> gitee
-        uses: Yikun/hub-mirror-action@master
-        with:
-          src: github/lan-tianxiang
-          dst: gitee/highdimen
-          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
-          dst_token: ${{ secrets.GITEE_TOKEN }}
+          # 注意替换为你的 GitHub 源仓库地址
+          source-repo: git@github.com:lan-tianxiang/clone_scripts.git
+          # 注意替换为你的 Gitee 目标仓库地址
+          destination-repo: git@gitee.com:highdimen/clone_scripts.git
