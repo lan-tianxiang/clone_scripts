@@ -1,4 +1,4 @@
-name: sync-jd_scripts
+name: sync_from_lxk_git
 on:
   workflow_dispatch:
   schedule:
