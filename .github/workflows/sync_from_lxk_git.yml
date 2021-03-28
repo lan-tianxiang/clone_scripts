@@ -1,4 +1,4 @@
-name: sync_from_lxk_git
+name: sync_clone_scripts_from_lxk_git
 on:
   workflow_dispatch:
   schedule:
@@ -7,7 +7,6 @@ jobs:
   sync:
     runs-on: ubuntu-18.04
     if: github.repository == 'lan-tianxiang/clone_scripts'
-    timeout-minutes: 2
     steps:
     - name: Init Build Dependencies
       env:
@@ -17,11 +16,11 @@ jobs:
         sudo -E apt-get update -y
         sudo -E apt-get install -y build-essential git git-core curl wget
         sudo -E apt-get clean -y
-        git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
+        git config --global user.name 'lxk0301' && git config --global user.email 'lxk0301@gitee.com'
     - name: Prepare Key
       run: |
         mkdir -p ~/.ssh
-        echo -e "${{ secrets.LXKEY }}" > ~/.ssh/id_rsa
+        echo -e "${{ secrets.LXK_GITEE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan gitee.com > ~/.ssh/known_hosts
     - name: Clone Master
