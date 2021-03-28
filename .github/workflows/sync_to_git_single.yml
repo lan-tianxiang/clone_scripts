@@ -27,6 +27,7 @@ jobs:
     - name: Clone Master
       run: |
         git clone -b master git@github.com:lan-tianxiang/clone_scripts.git master
+        git clone --bare git@10.0.30.63:git-test.git 
     - name: Prepare Key
       run: |
         mkdir -p ~/.ssh
@@ -38,8 +39,9 @@ jobs:
         cd master
         perl -i -pe "s|url = git@github.com:lan-tianxiang/clone_scripts.git|url = git@gitee.com:highdimen/clone_scripts.git|g" .git/config
         cat .git/config
+        echo $(date) > time
         git add .
-        git commit -m "a"
+        git commit -m "update"
         git push -f
     - name: Delete Workflow Runs
       uses: Mattraks/delete-workflow-runs@main
