@@ -38,7 +38,9 @@ jobs:
         cd master
         perl -i -pe "s|url = git@github.com:lan-tianxiang/clone_scripts.git|url = git@gitee.com:highdimen/clone_scripts.git|g" .git/config
         cat .git/config
-        git push -u origin master -f
+        git add .
+        git commit -m "a"
+        git push -f
     - name: Delete Workflow Runs
       uses: Mattraks/delete-workflow-runs@main
       with:
