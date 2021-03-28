@@ -1,4 +1,4 @@
-name: sync_to_git_single
+name: sync_clone_scripts_master_to_git
 on:
   workflow_dispatch:
   schedule:
