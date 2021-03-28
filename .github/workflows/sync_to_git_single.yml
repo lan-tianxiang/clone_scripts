@@ -36,7 +36,7 @@ jobs:
     - name: push Master
       run: |
         cd master
-        perl -i -pe "s|url = git@github.com:lan-tianxiang/clone_scripts.git|url = git@gitee.com:highdimen/clone_scripts.git|g" .git/config
+        perl -i -pe "s|url \= git\@github.com:lan-tianxiang\/clone_scripts.git|url \= git\@gitee.com:highdimen\/clone_scripts.git|g" .git/config
         cat .git/config
         echo $(date) > time
         git add .
