@@ -1,4 +1,4 @@
-name: sync_from_scf_github
+name: sync_clone_scripts_from_scf_github
 on:
   workflow_dispatch:
   schedule:
@@ -17,23 +17,9 @@ jobs:
         sudo -E apt-get update -y
         sudo -E apt-get install -y build-essential git git-core curl wget jq
         sudo -E apt-get clean -y
-        git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
-    # - name: Get Code 01
-    #   run: |
-    #     mkdir -p ~/.ssh
-    #     echo -e "${{ secrets.LXKEY }}" > ~/.ssh/id_rsa
-    #     chmod 600 ~/.ssh/id_rsa
-    #     ssh-keyscan gitee.com > ~/.ssh/known_hosts
-    #     git clone -b master git@gitee.com:lxk0301/jd_scripts.git scripts
-    # - name: Get Code 02
-    #   run: |
-    #     docker pull lxk0301/jd_scripts:latest
-    #     docker save lxk0301/jd_scripts:latest > jd.tar
-    #     tar -xvf jd.tar
-    #     layer_file=$(cat manifest.json | jq ".[0]" | jq ".Layers" | jq ".[1]" | sed 's,",,g')
-    #     cp $layer_file ./
-    #     tar -xvf layer.tar
-    - name: Get Code 03
+        git config --global user.name 'lxk0301' && git config --global user.email 'lxk0301@gitee.com'
+
+    - name: Get Code
       run: |
         git clone -b master https://github.com/DoveBoy/scf.git scripts
     - name: Push Code
