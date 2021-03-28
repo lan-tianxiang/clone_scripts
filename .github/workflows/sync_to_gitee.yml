@@ -7,7 +7,7 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     if: github.repository == 'lan-tianxiang/clone_scripts'
-    timeout-minutes: 5
+    timeout-minutes: 500
     steps:
       - name: sync_to_gitee
         uses: Yikun/hub-mirror-action@master
