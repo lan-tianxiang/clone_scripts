@@ -27,7 +27,6 @@ jobs:
     - name: Clone Master
       run: |
         git clone -b master git@github.com:lan-tianxiang/clone_scripts.git master
-        git clone --bare git@10.0.30.63:git-test.git 
     - name: Prepare Key
       run: |
         mkdir -p ~/.ssh
