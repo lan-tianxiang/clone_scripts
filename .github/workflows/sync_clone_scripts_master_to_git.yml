@@ -7,7 +7,6 @@ jobs:
   sync:
     runs-on: ubuntu-18.04
     if: github.repository == 'lan-tianxiang/clone_scripts'
-    timeout-minutes: 200
     steps:
     - name: Init Build Dependencies
       env:
@@ -17,11 +16,11 @@ jobs:
         sudo -E apt-get update -y
         sudo -E apt-get install -y build-essential git git-core curl wget
         sudo -E apt-get clean -y
-        git config --global user.name 'Anonymous' && git config --global user.email 'Anonymous@gitee.com'
+        git config --global user.name 'lxk0301' && git config --global user.email 'lxk0301@gitee.com'
     - name: Prepare Key
       run: |
         mkdir -p ~/.ssh
-        echo -e "${{ secrets.GITEE_RSA_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        echo -e "${{ secrets.RSA_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan github.com > ~/.ssh/known_hosts
     - name: Clone Master
@@ -30,7 +29,7 @@ jobs:
     - name: Prepare Key
       run: |
         mkdir -p ~/.ssh
-        echo -e "${{ secrets.GITEE_RSA_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        echo -e "${{ secrets.RSA_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan gitee.com > ~/.ssh/known_hosts
     - name: push Master
