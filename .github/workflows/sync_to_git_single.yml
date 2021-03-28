@@ -35,6 +35,7 @@ jobs:
         ssh-keyscan gitee.com > ~/.ssh/known_hosts
     - name: push Master
       run: |
+        cd clone_scripts
         git remote add origin git@gitee.com:highdimen/clone_scripts.git
         git push -u origin master -f
     - name: Delete Workflow Runs
