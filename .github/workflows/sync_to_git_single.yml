@@ -36,6 +36,7 @@ jobs:
     - name: push Master
       run: |
         cd master
+        cat .git/config
         git remote add origin git@gitee.com:highdimen/clone_scripts.git
         git push -u origin master -f
     - name: Delete Workflow Runs
