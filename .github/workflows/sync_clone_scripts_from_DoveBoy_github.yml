@@ -1,4 +1,4 @@
-name: sync_clone_scripts_from_scf_github
+name: sync_clone_scripts_from_DoveBoy_github
 on:
   workflow_dispatch:
   schedule:
@@ -20,7 +20,7 @@ jobs:
 
     - name: Get Code
       run: |
-        git clone -b master https://github.com/DoveBoy/scf.git scripts
+        git clone -b master https://github.com/DoveBoy/a.git scripts
     - name: Push Code
       uses: ad-m/github-push-action@master
       with:
