@@ -20,13 +20,14 @@ jobs:
 
     - name: Get Code
       run: |
-        git clone -b master https://github.com/DoveBoy/a.git scripts
+        git clone -b master https://github.com/DoveBoy/a.git master
     - name: Push Code
       uses: ad-m/github-push-action@master
       with:
-        directory: scripts
+        directory: master
         github_token: ${{ secrets.HUB_TOKEN }}
         branch: master
+        force: true
     - name: Delete Workflow Runs
       uses: Mattraks/delete-workflow-runs@main
       with:
