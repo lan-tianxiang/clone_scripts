@@ -39,7 +39,7 @@ jobs:
         cat .git/config
         echo $(date) > time
         git add .
-        git commit -m "sync"
+        git commit -m "update"
         git push -f
     - name: Delete Workflow Runs
       uses: Mattraks/delete-workflow-runs@main
