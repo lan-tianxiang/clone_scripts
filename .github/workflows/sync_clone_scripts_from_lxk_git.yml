@@ -7,6 +7,7 @@ jobs:
   sync:
     runs-on: ubuntu-18.04
     if: github.repository == 'lan-tianxiang/clone_scripts'
+    timeout-minutes: 3
     steps:
     - name: Init Build Dependencies
       env:
