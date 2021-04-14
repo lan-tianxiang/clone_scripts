@@ -2,50 +2,28 @@ name: sync_clone_scripts_master_to_git
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '6 */4 * * *'
 jobs:
   sync:
-    runs-on: ubuntu-18.04
-    if: github.repository == 'lan-tianxiang/clone_scripts'
+    runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-    - name: Init Build Dependencies
-      env:
-        DEBIAN_FRONTEND: noninteractive
-      run: |
-        sudo -E rm -rf /etc/apt/sources.list.d
-        sudo -E apt-get update -y
-        sudo -E apt-get install -y build-essential git git-core curl wget
-        sudo -E apt-get clean -y
-        git config --global user.name 'lxk0301' && git config --global user.email 'lxk0301@gitee.com'
-    - name: Prepare Key
-      run: |
-        mkdir -p ~/.ssh
-        echo -e "${{ secrets.RSA_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan github.com > ~/.ssh/known_hosts
-    - name: Clone Master
-      run: |
-        git clone -b master git@github.com:lan-tianxiang/clone_scripts.git master
-    - name: Prepare Key
-      run: |
-        mkdir -p ~/.ssh
-        echo -e "${{ secrets.RSA_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan gitee.com > ~/.ssh/known_hosts
-    - name: push Master
-      run: |
-        cd master
-        perl -i -pe "s|url \= git\@github.com:lan-tianxiang\/clone_scripts.git|url \= git\@gitee.com:highdimen\/clone_scripts.git|g" .git/config
-        cat .git/config
-        echo $(date) > time
-        git add .
-        git commit -m "update"
-        git push -f
-    - name: Delete Workflow Runs
-      uses: Mattraks/delete-workflow-runs@main
-      with:
-        token: ${{ github.token }}
-        repository: ${{ github.repository }}
-        retain_days: 1
-        keep_minimum_runs: 0
+      - name: Sync to Gitee
+        uses: wearerequired/git-mirror-action@master
+        env:
+          # 注意在 Settings->Secrets 配置 GITEE_RSA_PRIVATE_KEY
+          SSH_PRIVATE_KEY: ${{ secrets.RSA_PRIVATE_KEY }}
+        with:
+          # 注意替换为你的 GitHub 源仓库地址
+          source-repo: git@github.com:lan-tianxiang/clone_scripts.git
+          # 注意替换为你的 Gitee 目标仓库地址
+          destination-repo: git@gitee.com:highdimen/clone_scripts.git
+          
+      - name: Delete Workflow Runs
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+         token: ${{ github.token }}
+         repository: ${{ github.repository }}
+         retain_days: 1
+         keep_minimum_runs: 0
+         
