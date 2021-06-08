@@ -2,7 +2,7 @@ name: sync_clone_scripts_master_to_git
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '5,20,35,50 * * * *'
 jobs:
   sync:
     runs-on: ubuntu-latest
