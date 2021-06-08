@@ -2,7 +2,7 @@ name: sync_clone_scripts_from_lxk_git
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '0,15,30,45 * * * *'
 jobs:
   sync:
     runs-on: ubuntu-18.04
