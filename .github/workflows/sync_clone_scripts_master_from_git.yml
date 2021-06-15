@@ -1,13 +1,15 @@
-name: sync_clone_scripts_from_lxk_git
+name: Sync_Js_Tool_From_Gitee
 on:
+  push:
+    branches:
+      - A1
   workflow_dispatch:
   schedule:
-    - cron: '0,15,30,45 * * * *'
+    - cron: '*/10 * * * *'
 jobs:
   sync:
     runs-on: ubuntu-18.04
-    if: github.repository == 'lan-tianxiang/clone_scripts'
-    timeout-minutes: 3
+    timeout-minutes: 5
     steps:
     - name: Init Build Dependencies
       env:
@@ -17,23 +19,23 @@ jobs:
         sudo -E apt-get update -y
         sudo -E apt-get install -y build-essential git git-core curl wget
         sudo -E apt-get clean -y
-        git config --global user.name 'lxk0301' && git config --global user.email 'lxk0301@gitee.com'
+        git config --global user.name 'lan-tianxiang' && git config --global user.email 'highdimen@github.com'
     - name: Prepare Key
       run: |
         mkdir -p ~/.ssh
-        echo -e "${{ secrets.LXK_GITEE_KEY }}" > ~/.ssh/id_rsa
+        echo -e "${{ secrets.RSA_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan gitee.com > ~/.ssh/known_hosts
-    - name: Clone Master
+    - name: Clone master From clone_scripts
       run: |
-        git clone -b master git@gitee.com:lxk0301/jd_scripts.git master
-    - name: Push Master
+        git clone -b master git@gitee.com:highdimen/clone_scripts.git master
+    - name: Push master
       uses: ad-m/github-push-action@master
       with:
         directory: master
         github_token: ${{ secrets.HUB_TOKEN }}
         branch: master
-        force : ture
+        force : true
     - name: Delete Workflow Runs
       uses: Mattraks/delete-workflow-runs@main
       with:
