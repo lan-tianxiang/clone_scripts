@@ -1,11 +1,11 @@
-name: Sync_Js_Tool_From_Gitee
+name: sync_clone_scripts_master_from_git
 on:
   push:
     branches:
-      - A1
+      - master
   workflow_dispatch:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '0 */2 * * *'
 jobs:
   sync:
     runs-on: ubuntu-18.04
