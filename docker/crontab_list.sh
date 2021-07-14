@@ -30,8 +30,6 @@
 0 1,22 * * * node /scripts/jd_gold_creator.js >> /scripts/logs/jd_gold_creator.log 2>&1
 #5G超级盲盒(活动时间：2021-06-2到2021-07-31)
 0 0-23/4 * * * node /scripts/jd_mohe.js >> /scripts/logs/jd_mohe.log 2>&1
-#燃动夏季
-12 9,11,13,15,17 * * * node /scripts/jd_summer_movement.js >> /scripts/logs/jd_summer_movement.log 2>&1
 #早起福利
 30 6 * * * node /scripts/jd_zqfl.js >> /scripts/logs/jd_zqfl.log 2>&1
 #天天优惠大乐透
