@@ -657,6 +657,7 @@ async function dealReturn(type, res) {
         console.log(data.data.bizMsg);
       } else {
         console.log(res);
+        $.hotFlag = true;
       }
       break;
     case 'olympicgames_startTraining':
