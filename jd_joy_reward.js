@@ -645,7 +645,7 @@ let validate = '', validate1 = '', cookiesArr = [];
 function init() {
     return new Promise(resolve => {
         $.get({
-            url: `https://jdjoy.jd.com/common/gift/getBeanConfigs?reqSource=h5&invokeKey=NRp8OPxZMFXmGkaE&validate=${validate}`,
+            url: `https://jdjoy.jd.com/common/gift/getBeanConfigs?reqSource=h5&invokeKey=qRKHmL4sna8ZOP9F&validate=${validate}`,
             headers: {
                 'Host': 'jdjoy.jd.com',
                 'accept': '*/*',
@@ -680,7 +680,7 @@ function exchange(beanId) {
             }
         }
         $.post({
-            url: `https://jdjoy.jd.com/common/gift/new/exchange?reqSource=h5&invokeKey=NRp8OPxZMFXmGkaE&validate=${validate}`,
+            url: `https://jdjoy.jd.com/common/gift/new/exchange?reqSource=h5&invokeKey=qRKHmL4sna8ZOP9F&validate=${validate}`,
             headers: {
                 "Host": "jdjoy.jd.com",
                 "Accept-Language": "zh-cn",
