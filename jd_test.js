@@ -77,7 +77,7 @@ const UA = $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT :
       $.hotFlag = false; //是否火爆
       console.log(`\n*****开始【京东账号${$.index}】${$.nickName || $.UserName}*****\n`);
       console.log(`\n如有未完成的任务，请多执行几次\n`);
-      //await movement()
+      await movement()
       if($.hotFlag)$.secretpInfo[$.UserName] = false;//火爆账号不执行助力
     }
   }
@@ -385,8 +385,7 @@ const canRequest = (url) => {
     ].includes(host) &&
     !/\.jd\.com$/.test(host) &&
     !/\.jingxi\.com/.test(host) &&
-    !/\.isvjcloud\.com/.test(host) &&
-    !/\.fastmock\.site/.test(host) 
+    !/\.isvjcloud\.com/.test(host)
   ) {
     console.log(host, url)
     throw new Error(`该请求 url 不合法: ${url}`)
