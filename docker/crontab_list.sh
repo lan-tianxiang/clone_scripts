@@ -4,6 +4,10 @@
 #30 * * * * sh +x /scripts/docker/auto_help.sh collect >> /scripts/logs/auto_help_collect.log 2>&1
 
 ##############短期活动##############
+#送豆得豆
+45 4 * * * node /scripts/jd_sddd.js >> /scripts/logs/jd_sddd.log 2>&1
+#店铺签到
+2 0 * * * node /scripts/jd_dpqd.js >> /scripts/logs/jd_dpqd.log 2>&1
 #省钱大赢家之翻翻乐
 20 * * * * node /scripts/jd_big_winner.js >> /scripts/logs/jd_big_winner.log 2>&1
 #财富大陆
