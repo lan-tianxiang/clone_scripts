@@ -19,7 +19,7 @@ function randomString(e) {
 }
 $.InviteList = []
 $.innerInviteList = [];
-const HelpAuthorFlag = true;//是否助力作者SH  true 助力，false 不助力
+const HelpAuthorFlag = false;//是否助力作者SH  true 助力，false 不助力
 
 let cookiesArr = [], cookie = '';
 if ($.isNode()) {

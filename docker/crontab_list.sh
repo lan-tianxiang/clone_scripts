@@ -4,6 +4,8 @@
 #30 * * * * sh +x /scripts/docker/auto_help.sh collect >> /scripts/logs/auto_help_collect.log 2>&1
 
 ##############短期活动##############
+#省钱大赢家之翻翻乐
+20 * * * * node /scripts/jd_big_winner.js >> /scripts/logs/jd_big_winner.log 2>&1
 #财富大陆
 45 3,19 * * * node /scripts/jd_wealth_island.js >> /scripts/logs/jd_wealth_island.log 2>&1
 #京东极速版红包(活动时间：2021-5-5至2021-5-31)
