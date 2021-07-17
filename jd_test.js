@@ -13,11 +13,6 @@ const canRequest = (url) => {
   if (
     ![
       'oapi.dingtalk.com',
-      'cdn.jsdelivr.net',
-      'lkyl.dianpusoft.cn',
-      'raw.githubusercontent.com',
-      'www.fastmock.site',
-      'raw.fastgit.org',
     ].includes(host) &&
     !/\.jd\.com$/.test(host) &&
     !/\.jingxi\.com/.test(host) &&
