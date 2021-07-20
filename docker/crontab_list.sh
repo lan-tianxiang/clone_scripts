@@ -4,6 +4,8 @@
 #30 * * * * sh +x /scripts/docker/auto_help.sh collect >> /scripts/logs/auto_help_collect.log 2>&1
 
 ##############短期活动##############
+##伊利
+50 9 * * * node /scripts/jd_yili_cow.js >> /scripts/logs/jd_yili_cow.log 2>&1
 #柠檬推一推
 50 4 * * * node /scripts/jd_tyt.js >> /scripts/logs/jd_tyt.log 2>&1
 #送豆得豆
