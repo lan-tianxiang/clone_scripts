@@ -2,23 +2,23 @@
 签到领现金，每日2毛～5毛
 可互助，助力码每日不变，只变日期
 活动入口：京东APP搜索领现金进入
-更新时间：2021-04-28
+更新时间：2021-06-07
 已支持IOS双京东账号,Node.js支持N个京东账号
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
 ============Quantumultx===============
 [task_local]
 #签到领现金
-2 0-23/4 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_cash.js, tag=签到领现金, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
+2 0-23/4 * * * jd_cash.js, tag=签到领现金, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 
 ================Loon==============
 [Script]
-cron "2 0-23/4 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_cash.js,tag=签到领现金
+cron "2 0-23/4 * * *" script-path=jd_cash.js,tag=签到领现金
 
 ===============Surge=================
-签到领现金 = type=cron,cronexp="2 0-23/4 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_cash.js
+签到领现金 = type=cron,cronexp="2 0-23/4 * * *",wake-system=1,timeout=3600,script-path=jd_cash.js
 
 ============小火箭=========
-签到领现金 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_cash.js, cronexpr="2 0-23/4 * * *", timeout=3600, enable=true
+签到领现金 = type=cron,script-path=jd_cash.js, cronexpr="2 0-23/4 * * *", timeout=3600, enable=true
  */
 const $ = new Env('签到领现金');
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -28,9 +28,8 @@ let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭�
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message;
 let helpAuthor = true;
-const randomCount = $.isNode() ? 5 : 5;
+const randomCount = $.isNode() ? 5 : 0;
 let cash_exchange = false;//是否消耗2元红包兑换200京豆，默认否
-let cash_exchange2 = false;//是否消耗2元红包兑换200京豆，默认否
 const inviteCodes = [
   `eU9Yau6yNPkm9zrVzHsb3w@eU9YLarDP6Z1rRq8njtZ@eU9YN6nLObVHriuNuA9O`
 ]
@@ -50,8 +49,12 @@ let allMessage = '';
     return;
   }
   await requireConfig()
-  //await getAuthorShareCode();
-  //await getAuthorShareCode2();
+  $.authorCode = await getAuthorShareCode('https://raw.githubusercontent.com/Aaron-lv/updateTeam/master/shareCodes/jd_updateCash.json')
+  if (!$.authorCode) {
+    $.http.get({url: 'https://purge.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/jd_updateCash.json'}).then((resp) => {}).catch((e) => $.log('刷新CDN异常', e));
+    await $.wait(1000)
+    $.authorCode = await getAuthorShareCode('https://cdn.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/jd_updateCash.json') || []
+  }
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
@@ -85,6 +88,7 @@ let allMessage = '';
       $.done();
     })
 async function jdCash() {
+  $.signMoney = 0;
   await index()
   await shareCodesFormat()
   await helpFriends()
@@ -92,27 +96,27 @@ async function jdCash() {
   await getReward('2');
   $.exchangeBeanNum = 0;
   cash_exchange = $.isNode() ? (process.env.CASH_EXCHANGE ? process.env.CASH_EXCHANGE : `${cash_exchange}`) : ($.getdata('cash_exchange') ? $.getdata('cash_exchange') : `${cash_exchange}`);
-  cash_exchange2 = $.isNode() ? (process.env.CASH_EXCHANGE2 ? process.env.CASH_EXCHANGE2 : `${cash_exchange2}`) : ($.getdata('cash_exchange2') ? $.getdata('cash_exchange2') : `${cash_exchange2}`);
   if (cash_exchange === 'true') {
-    console.log(`\n\n开始花费2元红包兑换200京豆，一周可换四次`)
-    for (let item of ["-1", "0", "1", "2", "3"]) {
-      $.canLoop = true;
-      if ($.canLoop) {
-        for (let i = 0; i < 5; i++) {
-          await exchange2(item);//兑换200京豆(2元红包换200京豆，一周5次。)
-        }
-        if (!$.canLoop) {
-          console.log(`已找到符合的兑换条件，跳出\n`);
-          break
+    if(Number($.signMoney) >= 2){
+      console.log(`\n\n开始花费2元红包兑换200京豆，一周可换五次`)
+      for (let item of ["-1", "0", "1", "2", "3"]) {
+        $.canLoop = true;
+        if ($.canLoop) {
+          for (let i = 0; i < 5; i++) {
+            await exchange2(item);//兑换200京豆(2元红包换200京豆，一周5次。)
+          }
+          if (!$.canLoop) {
+            console.log(`已找到符合的兑换条件，跳出\n`);
+            break
+          }
         }
       }
+      if ($.exchangeBeanNum) {
+        message += `兑换京豆成功，获得${$.exchangeBeanNum * 100}京豆\n`;
+      }
+    }else{
+      console.log(`\n\n现金不够2元，不进行兑换200京豆，`)
     }
-    if ($.exchangeBeanNum) {
-      message += `兑换京豆成功，获得${$.exchangeBeanNum * 100}京豆\n`;
-    }
-  }
-  if (cash_exchange2 === 'true') {
-    await exchange1();
   }
   await index(true)
   // await showMsg()
@@ -136,6 +140,7 @@ function index(info=false) {
                 console.log(`\n\n当前现金：${data.data.result.signMoney}元`);
                 return
               }
+              $.signMoney = data.data.result.signMoney;
               // console.log(`您的助力码为${data.data.result.inviteCode}`)
               console.log(`\n【京东账号${$.index}（${$.UserName}）的${$.name}好友互助码】${data.data.result.inviteCode}\n`);
               let helpInfo = {
@@ -278,55 +283,6 @@ function getReward(source = 1) {
     })
   })
 }
-function exchange1() {
-  let body = '';
-  const data = {"clientVersion":"10.0.1"}
-  body = `clientVersion=10.0.1&build=88405&client=android&d_brand=HUAWEI&d_model=NOP-AN00&osVersion=9&screen=1920*1080&partner=xiaomi001&oaid=a519e7caefd6d12&eid=eidAed6d812253sc/UqDm2BNShybii+AtqAeEv1KhRKS/zL1VYb/sYfOobiBsOmxTVjj/zB2Z7Jk3T1YT8WRh6dwhwdIdEPnBJDBZ4Ut8mAHlOUYrLtW&sdkVersion=28&lang=zh_CN&uuid=a1c106409606e6c4&aid=a1c106409606e6c4&area=27_2376_50236_56688&networkType=4g&wifiBssid=unknown&uts=0f31TVRjBSvNio4N%2BCtmlAvkXL6JZzoo26PTJkn0J96Z%2Bir%2F67v%2FPBBqJt2rV3Kg5sFh8y5qVUGyYzzCYZspU68T9xX7xBzx%2BX9n4ArYPsiFQW5NShmt%2FFyeY9GpU65ocpvIH5b2bHlUngELLpbMuyyitkXirg8v074MdWdGlSV0NyWOOY%2BBvZq0ys3p8n81rtwPzgz5Ajgn08UH4y3Jnw%3D%3D&uemps=0-0&st=1624027590903&sign=909f011e78f56b7595f4faae79f98669&sv=122`;
-  return new Promise((resolve) => {
-    const options = {
-      url: `${JD_API_HOST}?functionId=cash_getRedPacket&${body}`,
-      body: `body=%7B%22amount%22%3A1000%2C%22type%22%3A2%7D&`,
-      headers: {
-        'Cookie': cookie,
-        'Host': 'api.m.jd.com',
-        'Connection': 'keep-alive',
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
-        'Accept-Language': 'zh-cn',
-        'Accept-Encoding': 'gzip, deflate, br',
-      }
-    }
-    $.post(options, async (err, resp, data) => {
-      try {
-        if (err) {
-          console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试`)
-        } else {
-          if (safeGet(data)) {
-            data = JSON.parse(data);
-            if (data['code'] === 0) {
-              if (data.data.bizCode === 0) {
-                console.log(`花费${data.data.result.needMoney}元红包兑换成功！获得${data.data.result.beanName}\n`)
-                $.exchangeBeanNum += parseInt(data.data.result.needMoney);
-                $.canLoop = false;
-              } else {
-                console.log('兑换10元红包：' + data.data.bizMsg)
-                if (data.data.bizCode === 504) $.canLoop = true;
-                if (data.data.bizCode === 120) $.canLoop = false;
-              }
-            } else {
-              console.log(`兑换10元红包：${JSON.stringify(data)}\n`);
-            }
-          }
-        }
-      } catch (e) {
-        $.logErr(e, resp)
-      } finally {
-        resolve(data);
-      }
-    })
-  })
-}
 function exchange2(node) {
   let body = '';
   const data = {node,"configVersion":"1.0"}
@@ -434,12 +390,10 @@ function shareCodesFormat() {
       let authorCode = deepCopy($.authorCode)
       $.newShareCodes = [...(authorCode.map((item, index) => authorCode[index] = item['inviteCode'])), ...$.newShareCodes];
     }
-    /*
     const readShareCodeRes = await readShareCode();
     if (readShareCodeRes && readShareCodeRes.code === 200) {
       $.newShareCodes = [...new Set([...$.newShareCodes, ...(readShareCodeRes.data || [])])];
     }
-    */
     $.newShareCodes.map((item, index) => $.newShareCodes[index] = { "inviteCode": item, "shareDate": $.shareDate })
     console.log(`第${$.index}个京东账号将要助力的好友${JSON.stringify($.newShareCodes)}`)
     resolve();
@@ -469,7 +423,7 @@ function requireConfig() {
       })
     } else {
       if ($.getdata('jd_cash_invite')) $.shareCodesArr = $.getdata('jd_cash_invite').split('\n').filter(item => !!item);
-      console.log(`\nBoxJs设置的京喜财富岛邀请码:${$.getdata('jd_cash_invite')}\n`);
+      console.log(`\nBoxJs设置的京东签到领现金邀请码:${$.getdata('jd_cash_invite')}\n`);
     }
     console.log(`您提供了${$.shareCodesArr.length}个账号的${$.name}助力码\n`);
     resolve()
@@ -508,43 +462,35 @@ function taskUrl(functionId, body = {}) {
   }
 }
 
-function getAuthorShareCode(url = "https://a.nz.lu/jd_cash.json") {
+function getAuthorShareCode(url) {
   return new Promise(resolve => {
-    $.get({url, headers:{
+    const options = {
+      url: `${url}?${new Date()}`, "timeout": 10000, headers: {
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
-      }, timeout: 200000,}, async (err, resp, data) => {
-      $.authorCode = [];
-      try {
-        if (err) {
-        } else {
-          $.authorCode = JSON.parse(data)
-        }
-      } catch (e) {
-        $.logErr(e, resp)
-      } finally {
-        resolve();
       }
-    })
-  })
-}
-function getAuthorShareCode2(url = "https://cdn.jsdelivr.net/gh/gitupdate/updateTeam@master/shareCodes/jd_updateCash.json") {
-  return new Promise(resolve => {
-    $.get({url, headers:{
-        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
-      }, timeout: 200000,}, async (err, resp, data) => {
-      $.authorCode2 = [];
+    };
+    if ($.isNode() && process.env.TG_PROXY_HOST && process.env.TG_PROXY_PORT) {
+      const tunnel = require("tunnel");
+      const agent = {
+        https: tunnel.httpsOverHttp({
+          proxy: {
+            host: process.env.TG_PROXY_HOST,
+            port: process.env.TG_PROXY_PORT * 1
+          }
+        })
+      }
+      Object.assign(options, { agent })
+    }
+    $.get(options, async (err, resp, data) => {
       try {
         if (err) {
         } else {
-          $.authorCode2 = JSON.parse(data)
-          if ($.authorCode2 && $.authorCode2.length) {
-            $.authorCode.push(...$.authorCode2);
-          }
+          if (data) data = JSON.parse(data)
         }
       } catch (e) {
-        $.logErr(e, resp)
+        // $.logErr(e, resp)
       } finally {
-        resolve();
+        resolve(data);
       }
     })
   })

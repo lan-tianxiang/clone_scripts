@@ -4,6 +4,19 @@
 #30 * * * * sh +x /scripts/docker/auto_help.sh collect >> /scripts/logs/auto_help_collect.log 2>&1
 
 ##############短期活动##############
+#柠檬赚金币
+0 7 * * * node /scripts/jd_zjb.js >> /scripts/logs/jd_zjb.log 2>&1
+#整点京豆雨
+1 0-23/1 * * * node /scripts/jd_super_redrain.js >> /scripts/logs/jd_super_redrain.log 2>&1
+#领京豆
+21 9 * * * node /scripts/jd_ljd.js >> /scripts/logs/jd_ljd.log 2>&1
+#京喜领88元红包
+4 10 * * * node /scripts/jd_jxlhb.js >> /scripts/logs/jd_jxlhb.log 2>&1
+20 0-23/3 * * * node /scripts/jd_joypark_joy.js >> /scripts/logs/jd_joypark_joy.log 2>&1
+#发财大赢家
+1 6-22/3 * * * node /scripts/jd_fcdyj.js >> /scripts/logs/jd_fcdyj.log 2>&1
+#赚30
+3 1,6 * * * node /scripts/jd_earn30.js >> /scripts/logs/jd_earn30.log 2>&1
 #首页-领京豆-升级赚京豆
 21 9 * * * node /scripts/jd_mmdou.js >> /scripts/logs/jd_mmdou.log 2>&1
 ##伊利
@@ -26,6 +39,8 @@
 0 0,1-22/2 1-31 4-7 * node /scripts/jd_yjmc.js >> /scripts/logs/jd_yjmc.log 2>&1
 #欧洲狂欢杯
 0,30 10 * * * node /scripts/jd_khb.js >> /scripts/logs/jd_khb.log 2>&1
+#超级直播间红包雨(活动时间不定期，出现异常提示请忽略。红包雨期间会正常)
+30 16-23/1 * * * node /scripts/jd_half_redrain.js >> /scripts/logs/jd_half_redrain.log 2>&1
 #超级直播间红包雨(活动时间不定期，出现异常提示请忽略。红包雨期间会正常)
 1,31 0-23/1 * * * node /scripts/jd_live_redrain.js >> /scripts/logs/jd_live_redrain.log 2>&1
 #星系牧场
@@ -69,6 +84,8 @@
 10 13-20/1 * * * node /scripts/jd_joy_run.js >> /scripts/logs/jd_joy_run.log 2>&1
 # 摇钱树
 23 */2 * * * node /scripts/jd_moneyTree.js >> /scripts/logs/jd_moneyTree.log 2>&1
+# 摇钱树
+23 */4 * * * node /scripts/jd_moneyTree_help.js >> /scripts/logs/jd_moneyTree_help.log 2>&1
 # 东东萌宠
 35 6-18/6 * * * node /scripts/jd_pet.js >> /scripts/logs/jd_pet.log 2>&1
 # 京东种豆得豆
