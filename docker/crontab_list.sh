@@ -4,6 +4,8 @@
 #30 * * * * sh +x /scripts/docker/auto_help.sh collect >> /scripts/logs/auto_help_collect.log 2>&1
 
 ##############短期活动##############
+#手机狂欢城
+0 0-18/6 * * * node /scripts/jd_5g.js >> /scripts/logs/jd_5g.log 2>&1
 #七夕
 36 0,10,21 4-15 8 * node /scripts/jd_qixi.js >> /scripts/logs/jd_qixi.log 2>&1
 #柠檬赚金币
