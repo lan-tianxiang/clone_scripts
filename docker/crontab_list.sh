@@ -180,5 +180,8 @@
 5 0 * * * node /scripts/jx_sign.js >> /scripts/logs/jx_sign.log 2>&1
 #来客有礼小程序
 45 4 * * * node /scripts/jd_senbeans.js >> /scripts/logs/jd_senbeans.log 2>&1
+#大乐透
+15 6 * * * node /scripts/jd_DrawEntrance.js >> /scripts/logs/jd_DrawEntrance.log 2>&1
+
 ##############可选脚本##############
 
